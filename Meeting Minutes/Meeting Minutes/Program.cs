@@ -1,4 +1,10 @@
+using Meeting_Minutes.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
+
+IServiceCollection serviceCollection = builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaulConnectionString")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
