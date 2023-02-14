@@ -1,14 +1,16 @@
 ﻿using Meeting_Minutes.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using System.Linq;
 
 namespace Meeting_Minutes.Data
 {
     internal class DataAccess
     {
         private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=meeting-db;Integrated Security=True";
-        
-        //fetch all
+
+        //fetch all users
         public List<User> FetchAllUser()
         {
             List<User> returnList = new List<User>();
@@ -16,7 +18,7 @@ namespace Meeting_Minutes.Data
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string sqlQuery = "SELECT * FROM [user]";
-                SqlCommand command = new SqlCommand(sqlQuery,connection);
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -26,7 +28,7 @@ namespace Meeting_Minutes.Data
                     {
                         User user = new User();
                         user.UserId = reader.GetInt32(0);
-                        user.UserName = reader.GetString(1);    
+                        user.UserName = reader.GetString(1);
 
                         returnList.Add(user);
                     }
@@ -35,16 +37,16 @@ namespace Meeting_Minutes.Data
             return returnList;
         }
 
-        //fetch one
+        //fetch one user
         public User FetchOneUser(int id)
         {
-            
+
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string sqlQuery = "SELECT * FROM [user] WHERE UserId = @id";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
-                command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;   
+                command.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 User user = new User();
@@ -52,16 +54,16 @@ namespace Meeting_Minutes.Data
                 {
                     while (reader.Read())
                     {
-                        
+
                         user.UserId = reader.GetInt32(0);
                         user.UserName = reader.GetString(1);
 
-                        
+
                     }
                 }
                 return user;
             }
-            
+
         }
 
         //create user
@@ -73,15 +75,15 @@ namespace Meeting_Minutes.Data
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string sqlQuery = "";
-                if(user.UserId <= 0)
+                if (user.UserId <= 0)
                 {
-                    sqlQuery= "INSERT INTO [user] Values(@UserName)";
+                    sqlQuery = "INSERT INTO [user] Values(@UserName)";
                 }
                 else
                 {
                     sqlQuery = "UPDATE [User] SET UserName = @UserName WHERE UserId = @UserId";
                 }
-                    
+
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 command.Parameters.Add("@UserId", System.Data.SqlDbType.VarChar, 100).Value = user.UserId;
                 command.Parameters.Add("@UserName", System.Data.SqlDbType.VarChar, 100).Value = user.UserName;
@@ -107,10 +109,42 @@ namespace Meeting_Minutes.Data
                 return deletedID;
             }
         }
-          
 
+
+        //Fetch All Meetings
+        public List<Meeting> FetchAllMeets()
+        {
+            List<Meeting> returnList = new List<Meeting>();
+            List<MeetingTypes> returnList1 = new List<MeetingTypes>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                
+                string sqlQuery = "SELECT * FROM [meeting] AND [meetingTypes]";
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        
+                        Meeting meets = new Meeting();
+                        meets.meetingID = reader.GetInt32(0);
+                        meets.meetingNumber = reader.GetInt32(1);
+                        meets.meetingDate = reader.GetDateTime(2);
+                        meets.MeetingTypeId= reader.GetInt32(3);
+                        meets.
+                        returnList.Add(meets);
+                    }
+                }
             }
-
+            return returnList, returnList1;
         }
+
+    }
+
+}
     
 

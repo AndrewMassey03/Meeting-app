@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Meeting_Minutes.Models.Meeting>
+
+@{
+    ViewData["Title"] = "Index";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+
+}
+
+<h1>Meetings</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.meetingNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.meetingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MeetingTypeId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.meetingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.meetingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MeetingTypeId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.meetingID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.meetingID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.meetingID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

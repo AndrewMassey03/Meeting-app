@@ -58,7 +58,7 @@ namespace Meeting_Minutes.Data
                         {
                             ItemName = "Finalise SomeCompany Contract",
                             ItemDescription = "Resources for SomeCompany was discussed. PW advised that SomeCompany are looking for a Senior Developer and a Junior Developer.\n\nPeter to contact Employment Agencies with specifications",
-                            DueDate = DateTime.Now,
+                            DueDate = DateTime.Parse("2023/02/14"),
                             CurrentStatus = "Open",
                             UserId = 2,
                         },
@@ -67,7 +67,7 @@ namespace Meeting_Minutes.Data
                         {
                             ItemName = "Asset Management System",
                             ItemDescription = "Project is proceeding well and will be completed on time.\n\nPhase One is ready for testing",
-                            DueDate = DateTime.Now,
+                            DueDate = DateTime.Parse("2023/02/14"),
                             CurrentStatus = "In Development",
                             UserId = 3,
                         },
@@ -76,7 +76,7 @@ namespace Meeting_Minutes.Data
                         {
                             ItemName = "Some Other System.",
                             ItemDescription = "This system is complete and installed. Customer can be Invoiced",
-                            DueDate = DateTime.Now,
+                            DueDate = DateTime.Parse("2023/02/14"),
                             CurrentStatus = "Awaiting Invoicing",
                             UserId = 4,
                         },
@@ -85,7 +85,7 @@ namespace Meeting_Minutes.Data
                         {
                             ItemName = "Another System",
                             ItemDescription = "This System is complete and has been invoiced.",
-                            DueDate = DateTime.Now,
+                            DueDate = DateTime.Parse("2023/02/14"),
                             CurrentStatus = "Closed",
                             UserId = 1,
                         },
@@ -100,21 +100,21 @@ namespace Meeting_Minutes.Data
                         new ItemStatus()
                         {
                             Status = "In Process",
-                            StatusDate = DateTime.Now.AddDays(30),
+                            StatusDate = DateTime.Parse("2023/03/14"),
                             itemId = 4, 
                         },
 
                         new ItemStatus()
                         {
                             Status = "Awaiting Invoicing",
-                            StatusDate = DateTime.Now.AddDays(30),
+                            StatusDate = DateTime.Parse("2023/03/14"),
                             itemId = 5,
                         },
 
                           new ItemStatus()
                         {
                             Status = "Open",
-                            StatusDate = DateTime.Now.AddDays(-30),
+                            StatusDate = DateTime.Parse("2023/01/14"),
                             itemId = 5,
                         },
                     });
@@ -151,20 +151,20 @@ namespace Meeting_Minutes.Data
                        new Meeting()
                        {
                            meetingNumber = 1,
-                           meetingDate= DateTime.Now.AddDays(-30),
+                           meetingDate= DateTime.Parse("2023/01/14"),
                            MeetingTypeId = 3,
                            
                        },
                        new Meeting()
                        {
                            meetingNumber = 2,
-                           meetingDate= DateTime.Now,
+                           meetingDate= DateTime.Parse("2023/02/14"),
                            MeetingTypeId = 3,
                        },
                        new Meeting()
                        {
                            meetingNumber = 3,
-                           meetingDate= DateTime.Now.AddDays(30),
+                           meetingDate= DateTime.Parse("2023/03/14"),
                            MeetingTypeId = 3,
                        },
                     });
