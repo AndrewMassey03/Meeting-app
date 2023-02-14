@@ -45,15 +45,14 @@ namespace MeetingMinutes.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     meetingNumber = table.Column<int>(type: "int", nullable: false),
                     meetingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MeetingTypeId = table.Column<int>(type: "int", nullable: false),
-                    meetingTypesMeetingTypeId = table.Column<int>(type: "int", nullable: false)
+                    MeetingTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Meeting", x => x.meetingID);
                     table.ForeignKey(
-                        name: "FK_Meeting_MeetingTypes_meetingTypesMeetingTypeId",
-                        column: x => x.meetingTypesMeetingTypeId,
+                        name: "FK_Meeting_MeetingTypes_MeetingTypeId",
+                        column: x => x.MeetingTypeId,
                         principalTable: "MeetingTypes",
                         principalColumn: "MeetingTypeId",
                         onDelete: ReferentialAction.Cascade);
@@ -138,9 +137,9 @@ namespace MeetingMinutes.Migrations
                 column: "itemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Meeting_meetingTypesMeetingTypeId",
+                name: "IX_Meeting_MeetingTypeId",
                 table: "Meeting",
-                column: "meetingTypesMeetingTypeId");
+                column: "MeetingTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Meetings_Items_itemId",

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeetingMinutes.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230211235207_Initial")]
+    [Migration("20230212162509_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -100,12 +100,9 @@ namespace MeetingMinutes.Migrations
                     b.Property<int>("meetingNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("meetingTypesMeetingTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("meetingID");
 
-                    b.HasIndex("meetingTypesMeetingTypeId");
+                    b.HasIndex("MeetingTypeId");
 
                     b.ToTable("Meeting");
                 });
@@ -183,13 +180,13 @@ namespace MeetingMinutes.Migrations
 
             modelBuilder.Entity("Meeting_Minutes.Models.Meeting", b =>
                 {
-                    b.HasOne("Meeting_Minutes.Models.MeetingTypes", "meetingTypes")
-                        .WithMany("Meetings")
-                        .HasForeignKey("meetingTypesMeetingTypeId")
+                    b.HasOne("Meeting_Minutes.Models.MeetingTypes", "meetingType")
+                        .WithMany("Meeting")
+                        .HasForeignKey("MeetingTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("meetingTypes");
+                    b.Navigation("meetingType");
                 });
 
             modelBuilder.Entity("Meeting_Minutes.Models.Meetings_Items", b =>
@@ -225,7 +222,7 @@ namespace MeetingMinutes.Migrations
 
             modelBuilder.Entity("Meeting_Minutes.Models.MeetingTypes", b =>
                 {
-                    b.Navigation("Meetings");
+                    b.Navigation("Meeting");
                 });
 
             modelBuilder.Entity("Meeting_Minutes.Models.User", b =>

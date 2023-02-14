@@ -5,12 +5,12 @@ namespace Meeting_Minutes.Models
     public class MeetingTypes
     {
         [Key]
-        public int TypeId { get; set; }
+        public int MeetingTypeId { get; set; }
         public string Name { get; set; }
 
         //Relationships
 
-        public List<Meeting> Meetings { get; set; }
+        public List<Meeting> Meeting { get; set; }
 
 
        

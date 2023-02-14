@@ -11,5 +11,7 @@ namespace Meeting_Minutes.Models
 
         //Relationships
         public List<Item> Items { get; set; }
+
+        
     }
 }

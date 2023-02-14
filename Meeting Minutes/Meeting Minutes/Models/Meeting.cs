@@ -12,10 +12,15 @@ namespace Meeting_Minutes.Models
 
         public DateTime meetingDate { get; set; }
 
+        //Meeting Types
+
+        public int MeetingTypeId { get; set; }
+        [ForeignKey("MeetingTypeId")]
+        public MeetingTypes meetingType { get; set; }
+
         //Relationships
         public List<Meetings_Items> Meeting_Item { get; set; }
 
-        //Meeting Types
-
+       
     }
 }

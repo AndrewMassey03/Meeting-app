@@ -91,9 +91,6 @@ namespace MeetingMinutes.Migrations
                     b.Property<int>("MeetingTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MeetingTypesTypeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("meetingDate")
                         .HasColumnType("datetime2");
 
@@ -102,24 +99,24 @@ namespace MeetingMinutes.Migrations
 
                     b.HasKey("meetingID");
 
-                    b.HasIndex("MeetingTypesTypeId");
+                    b.HasIndex("MeetingTypeId");
 
                     b.ToTable("Meeting");
                 });
 
             modelBuilder.Entity("Meeting_Minutes.Models.MeetingTypes", b =>
                 {
-                    b.Property<int>("TypeId")
+                    b.Property<int>("MeetingTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TypeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MeetingTypeId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TypeId");
+                    b.HasKey("MeetingTypeId");
 
                     b.ToTable("MeetingTypes");
                 });
@@ -180,13 +177,13 @@ namespace MeetingMinutes.Migrations
 
             modelBuilder.Entity("Meeting_Minutes.Models.Meeting", b =>
                 {
-                    b.HasOne("Meeting_Minutes.Models.MeetingTypes", "MeetingTypes")
-                        .WithMany("Meetings")
-                        .HasForeignKey("MeetingTypesTypeId")
+                    b.HasOne("Meeting_Minutes.Models.MeetingTypes", "meetingType")
+                        .WithMany("Meeting")
+                        .HasForeignKey("MeetingTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MeetingTypes");
+                    b.Navigation("meetingType");
                 });
 
             modelBuilder.Entity("Meeting_Minutes.Models.Meetings_Items", b =>
@@ -222,7 +219,7 @@ namespace MeetingMinutes.Migrations
 
             modelBuilder.Entity("Meeting_Minutes.Models.MeetingTypes", b =>
                 {
-                    b.Navigation("Meetings");
+                    b.Navigation("Meeting");
                 });
 
             modelBuilder.Entity("Meeting_Minutes.Models.User", b =>
