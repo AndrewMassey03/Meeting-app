@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using System.Collections;
 using System.Linq;
 
 namespace Meeting_Minutes.Data
@@ -112,15 +113,15 @@ namespace Meeting_Minutes.Data
 
 
         //Fetch All Meetings
-        public List<Meeting> FetchAllMeets()
+        public List<Meeting>  FetchAllMeets()
         {
             List<Meeting> returnList = new List<Meeting>();
-            List<MeetingTypes> returnList1 = new List<MeetingTypes>();
+            
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 
-                string sqlQuery = "SELECT * FROM [meeting] AND [meetingTypes]";
+                string sqlQuery = "SELECT * FROM [meeting]";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -131,16 +132,16 @@ namespace Meeting_Minutes.Data
                     {
                         
                         Meeting meets = new Meeting();
-                        meets.meetingID = reader.GetInt32(0);
+                        meets.meetingID = reader.GetInt32(0) ;
                         meets.meetingNumber = reader.GetInt32(1);
                         meets.meetingDate = reader.GetDateTime(2);
                         meets.MeetingTypeId= reader.GetInt32(3);
-                        meets.
+                        
                         returnList.Add(meets);
                     }
                 }
             }
-            return returnList, returnList1;
+            return returnList;
         }
 
     }
