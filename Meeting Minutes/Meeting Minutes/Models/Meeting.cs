@@ -17,7 +17,5 @@ namespace Meeting_Minutes.Models
 
         //Meeting Types
 
-        public int MeetingTypeId { get; set; }
-        public MeetingTypes MeetingTypes { get; set; }
     }
 }
